@@ -1,4 +1,5 @@
 
+package contabanco;
 /**
  *
  * @author walopes
@@ -51,8 +52,7 @@ public class Account {
     
     public void setStatus(boolean type)
     {
-        if(type) this.status = true;
-        else this.status = false;
+         this.status = type;
     }
     
     public boolean getStatus()
@@ -70,12 +70,23 @@ public class Account {
         return this.saldo;
     }
     
+    public void setDono(String dono)
+    {
+        this.dono = dono;
+    }
+    
+    public String getDono()
+    {
+        return this.dono;
+    }
+    
     ///
     
     public void abrirConta(String conta, int numConta)
     {
         this.setNumConta(numConta);
         this.setTipo(conta);
+        this.setStatus(true);
         if(conta.equals("cc"))
             this.setSaldo(50);
         else if(conta.equals("cp"))
@@ -101,7 +112,7 @@ public class Account {
     {
         if(this.getStatus())
         {
-            this.setSaldo(valor + this.getSaldo());
+            this.setSaldo(this.getSaldo() + valor);
             return true;
         }
         return false;
@@ -111,10 +122,36 @@ public class Account {
     {
         if(this.getStatus())
         {
-            this.setSaldo(this.getSaldo() - saldo);
+            this.setSaldo(this.getSaldo() - valor);
             return true;
         }
         return false;
+    }
+    
+    public boolean pagarMensalidade()
+    {
+        if(this.getTipo().equals("cc")) // Current Account
+            return this.sacarConta(12);
+        else if(this.getTipo().equals("cp")) // Current Account
+            return this.sacarConta(20);
+        
+        return false;
+    }
+    
+    public void show()
+    {
+        System.out.println("********************************************");
+        System.out.println("Account number: " +this.getNumConta());
+        if(this.getStatus())
+        {
+            System.out.println("This account is open.");
+            System.out.println("The owner of this account is Mr(s) " +this.getDono());
+            if(this.getTipo().equals("cc")) System.out.println("This is a current account.");
+            else System.out.println("This is a savings account");
+            System.out.println("Amount of cash this account have: "+this.getSaldo());
+        }
+        System.out.println("This account is closed or it has problems.");
+        System.out.println("********************************************");
     }
     
 }

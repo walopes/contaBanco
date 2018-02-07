@@ -16,6 +16,17 @@ public class ContaBanco {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        Account Corrente = new Account();
+        Corrente.show();
+        Corrente.abrirConta("cc",4899);
+        Corrente.setDono("Marcão");       
+        
+        Corrente.show();
+        Corrente.depositarConta(120);
+        Corrente.pagarMensalidade();
+        Corrente.show();
+        
     }
     
 }
