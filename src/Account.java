@@ -43,10 +43,78 @@ public class Account {
     {
         this.tipo = c;
     }
-    
+   
     public String getTipo()
     {
         return this.tipo;
+    }
+    
+    public void setStatus(boolean type)
+    {
+        if(type) this.status = true;
+        else this.status = false;
+    }
+    
+    public boolean getStatus()
+    {
+        return this.status;
+    }
+    
+    public void setSaldo(double f)
+    {
+        this.saldo = f;
+    }
+    
+    public double getSaldo()
+    {
+        return this.saldo;
+    }
+    
+    ///
+    
+    public void abrirConta(String conta, int numConta)
+    {
+        this.setNumConta(numConta);
+        this.setTipo(conta);
+        if(conta.equals("cc"))
+            this.setSaldo(50);
+        else if(conta.equals("cp"))
+            this.setSaldo(150);
+    }
+    
+    public boolean fecharConta(int numConta)
+    {
+        if(this.saldo > 0)
+            System.out.print("Conta possui dinheiro." + '\n' + "Não é possível excluir a conta");
+        else if(this.saldo < 0)
+            System.out.print("Conta com débitos." + '\n' + "Não é possível excluir a conta");
+        else
+        {
+            this.setStatus(false);
+            System.out.println("Conta fechada com sucesso!");
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean depositarConta(double valor)
+    {
+        if(this.getStatus())
+        {
+            this.setSaldo(valor + this.getSaldo());
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean sacarConta(double valor)
+    {
+        if(this.getStatus())
+        {
+            this.setSaldo(this.getSaldo() - saldo);
+            return true;
+        }
+        return false;
     }
     
 }
